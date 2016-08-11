@@ -46,12 +46,7 @@ export function config(options) {
             }, {
                 // anything with .global will not go through css modules loader
                 test: /^((?!\.global).)*\.css$/,
-                loaders: [
-                    'isomorphic-style-loader',
-                    'css-loader?modules&sourceMap&importLoaders=1' +
-                        '&localIdentName=[name]__[local]___[hash:base64:3]',
-                    'postcss-loader',
-                ],
+                loader: 'style!css',
             }, {
                 test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
                 loader: 'url-loader?limit=10000&name=files/[hash].[ext]',
