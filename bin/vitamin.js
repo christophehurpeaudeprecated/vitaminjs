@@ -129,13 +129,13 @@ const serve = () => {
     });
 };
 
-const launchTest = (runner) => {
+const launchTest = (runner, options) => {
     console.log('Launching tests...');
     const serverFile = path.join(
         config.build.path,
         'tests'
     );
-    const serverProcess = exec(`${runner} ${serverFile} --color`);
+    const serverProcess = exec(`${runner} ${serverFile} ${options}`);
     serverProcess.stdout.on('data', data => console.log(data.toString().trim()));
     serverProcess.stderr.on('data', data => console.error(data.toString()));
 };
@@ -145,11 +145,19 @@ program
     .version(version);
 
 program
-    .command('test')
+    .command('test [runnerArgs...]')
     .alias('t')
     .description('Build test suite')
     .option('-r, --runner [type]', 'Choose your test suite to run vitamin with', 'mocha')
-    .action(({ runner }) => buildTest().then(() => launchTest(runner)));
+    .action((runnerArgs, { runner }) => {
+        buildTest().then(() => launchTest(runner, runnerArgs.join(' ')));
+    })
+    .on('--help', () => {
+        console.log('  Examples:');
+        console.log('');
+        console.log('    $ vitamin test -r mocha -- --color');
+        console.log('');
+    });
 
 program
     .command('build')
