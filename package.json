@@ -46,7 +46,7 @@
     "react-helmet": "^3.1.0"
   },
   "dependencies": {
-    "assets-webpack-plugin": "^3.4.0",
+    "assets-webpack-plugin": "^3.5.0",
     "async-props": "^0.3.2",
     "autoprefixer": "^6.3.3",
     "babel-core": "^6.14.0",
